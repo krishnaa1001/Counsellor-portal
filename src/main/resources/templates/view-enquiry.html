@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Enquiries</title>
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        .container {
+            margin-top: 80px; /* Added space for the navbar */
+            max-width: 900px;
+            width: 100%; /* Ensure it adapts to screen width */
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap; /* Make sure filters are stacked on small screens */
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filters select, .filters button {
+            width: 100%; /* Make selects and buttons take full width on smaller screens */
+        }
+
+        .filters .col-md-3 {
+            flex: 1; /* Ensure equal distribution */
+        }
+
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .btn-add {
+            background-color: #0d6efd;
+            color: white;
+            margin-bottom: 20px;
+            padding: 12px 20px;
+            border-radius: 5px;
+        }
+
+        .btn-add:hover {
+            background-color: #084298;
+        }
+
+        .btn-search {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .btn-search:hover {
+            background-color: #218838;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-brand {
+            color: #343a40;
+        }
+
+        .navbar-nav .nav-link {
+            color: #343a40;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #007bff;
+        }
+
+        /* Search button inline with other filters */
+        .filters select, .filters button {
+            width: 100%; /* Ensures the buttons and select take full width */
+        }
+
+        /* Table responsiveness */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar Section -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Counselor Portal</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index">Home</a>
+                    </li>
+               <!--      <li class="nav-item">
+                        <a class="nav-link active" href="view-enquiries.html">View Enquiries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-enquiry.html">Add Enquiry</a>
+                    </li>--> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>View Enquiries</h2>
+
+        <!-- Filters Form -->
+        <form>
+            <div class="filters row g-2">
+                <div class="col-12 col-md-3">
+                    <select class="form-select">
+                        <option value="">Class Mode</option>
+                        <option value="online">Online</option>
+                        <option value="classroom">Classroom</option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-3">
+                    <select class="form-select">
+                        <option value="">Course</option>
+                        <option value="java">Java</option>
+                        <option value="devops">DevOps</option>
+                        <option value="python">Python</option>
+                        <option value="testing">Testing</option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-3">
+                    <select class="form-select">
+                        <option value="">Status</option>
+                        <option value="new">New</option>
+                        <option value="enrolled">Enrolled</option>
+                        <option value="lost">Lost</option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-3">
+                    <button type="button" class="btn btn-search w-100">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Add New Enquiry Button -->
+        <div class="text-end mb-3">
+            <a href="add-enquiry" class="btn btn-add">Add New Enquiry</a>
+        </div>
+
+        <!-- Enquiries Table -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Course Name</th>
+                        <th>Class Mode</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>1234567890</td>
+                        <td>Java</td>
+                        <td>Online</td>
+                        <td>New</td>
+                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>0987654321</td>
+                        <td>Python</td>
+                        <td>Classroom</td>
+                        <td>Enrolled</td>
+                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
+                    </tr>
+                    <tr>
+                        <td>Sam Wilson</td>
+                        <td>9876543210</td>
+                        <td>DevOps</td>
+                        <td>Online</td>
+                        <td>Lost</td>
+                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
+                    </tr>
+                    <tr>
+                        <td>Chris Brown</td>
+                        <td>1122334455</td>
+                        <td>Java</td>
+                        <td>Classroom</td>
+                        <td>New</td>
+                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
+                    </tr>
+                    <tr>
+                        <td>Alice Johnson</td>
+                        <td>2233445566</td>
+                        <td>Python</td>
+                        <td>Online</td>
+                        <td>Enrolled</td>
+                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
+                    </tr>
+                    <tr>
+                        <td>Mike Taylor</td>
+                        <td>3344556677</td>
+                        <td>DevOps</td>
+                        <td>Classroom</td>
+                        <td>Lost</td>
+                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
+                    </tr>
+                    <tr>
+                        <td>Emily White</td>
+                        <td>4455667788</td>
+                        <td>Java</td>
+                        <td>Online</td>
+                        <td>New</td>
+                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
