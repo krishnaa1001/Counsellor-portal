@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        .profile-card {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .edit-form {
+            display: none;
+        }
+        .visible {
+            display: block;
+        }
+        .password-mask {
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/dashboard">Counsellor Portal</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Card Display -->
+    <div class="profile-card mt-5" id="profileView">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Profile Details</h2>
+            <button class="btn btn-primary" onclick="toggleEditForm()">
+                <i class="bi bi-pencil-square"></i> Edit
+            </button>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <strong>Full Name:</strong>
+                <p th:text="${counsellor.name}">John Doe</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <strong>Email:</strong>
+                <p th:text="${counsellor.email}">john@example.com</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <strong>Phone:</strong>
+                <p th:text="${counsellor.phno}">9876543210</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <strong>Password:</strong>
+                <p class="password-mask">••••••••</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Form -->
+    <div class="profile-card edit-form mt-5" id="editForm">
+        <h2 class="mb-4">Edit Profile</h2>
+        
+        <form th:action="@{/update-profile}" th:object="${counsellor}" method="post">
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" th:field="*{name}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" th:field="*{email}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" th:field="*{phno}" pattern="[0-9]{10}" maxlength="10" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">New Password</label>
+                <input type="password" class="form-control" th:field="*{pwd}" placeholder="Leave blank to keep current" minlength="6">
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-check-circle"></i> Save Changes
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="toggleEditForm()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function toggleEditForm() {
+            const profileView = document.getElementById('profileView');
+            const editForm = document.getElementById('editForm');
+            
+            profileView.classList.toggle('visible');
+            editForm.classList.toggle('visible');
+            
+            if(editForm.classList.contains('visible')) {
+                profileView.style.display = 'none';
+                editForm.style.display = 'block';
+            } else {
+                profileView.style.display = 'block';
+                editForm.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

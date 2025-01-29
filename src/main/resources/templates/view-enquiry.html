@@ -11,7 +11,7 @@
 
     <style>
         .container {
-            margin-top: 80px; /* Added space for the navbar */
+            margin-top: 10px; /* Added space for the navbar */
             max-width: 900px;
             width: 100%; /* Ensure it adapts to screen width */
             background-color: #ffffff;
@@ -113,7 +113,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index">Home</a>
+                        <a class="nav-link" href="dashboard">Dashboard</a>
                     </li>
                <!--      <li class="nav-item">
                         <a class="nav-link active" href="view-enquiries.html">View Enquiries</a>
@@ -122,10 +122,10 @@
                         <a class="nav-link" href="add-enquiry.html">Add Enquiry</a>
                     </li>--> 
                     <li class="nav-item">
-                        <a class="nav-link" href="profile.html">Profile</a>
+                        <a class="nav-link" href="profile">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.html">Logout</a>
+                        <a class="nav-link" href="logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -136,38 +136,37 @@
         <h2>View Enquiries</h2>
 
         <!-- Filters Form -->
-        <form>
-            <div class="filters row g-2">
-                <div class="col-12 col-md-3">
-                    <select class="form-select">
-                        <option value="">Class Mode</option>
-                        <option value="online">Online</option>
-                        <option value="classroom">Classroom</option>
-                    </select>
-                </div>
-                <div class="col-12 col-md-3">
-                    <select class="form-select">
-                        <option value="">Course</option>
-                        <option value="java">Java</option>
-                        <option value="devops">DevOps</option>
-                        <option value="python">Python</option>
-                        <option value="testing">Testing</option>
-                    </select>
-                </div>
-                <div class="col-12 col-md-3">
-                    <select class="form-select">
-                        <option value="">Status</option>
-                        <option value="new">New</option>
-                        <option value="enrolled">Enrolled</option>
-                        <option value="lost">Lost</option>
-                    </select>
-                </div>
-                <div class="col-12 col-md-3">
-                    <button type="button" class="btn btn-search w-100">Search</button>
-                </div>
-            </div>
-        </form>
-
+       <form th:action="@{/filter-enqs}" th:object="${viewEnqFilterRequest}" method="post">
+    <div class="filters row g-2">
+        <div class="col-12 col-md-3">
+            <select class="form-select" th:field="*{classMode}">
+                <option value="">-Select-</option>
+                <option value="online">Online</option>
+                <option value="Offline">Offline</option>
+            </select>
+        </div>
+        <div class="col-12 col-md-3">
+            <select class="form-select" th:field="*{courseName}">
+                <option value="">-Select-</option>
+                <option value="java">Java</option>
+                <option value="devops">DevOps</option>
+                <option value="python">Python</option>
+                <option value="testing">Testing</option>
+            </select>
+        </div>
+        <div class="col-12 col-md-3">
+            <select class="form-select" th:field="*{enqStatus}">
+                <option value="">-Select-</option>
+                <option value="Open">Open</option>
+                <option value="enrolled">Enrolled</option>
+                <option value="lost">Lost</option>
+            </select>
+        </div>
+        <div class="col-12 col-md-3">
+            <button type="submit" class="btn btn-search w-100">Search</button>
+        </div>
+    </div>
+</form>
         <!-- Add New Enquiry Button -->
         <div class="text-end mb-3">
             <a href="add-enquiry" class="btn btn-add">Add New Enquiry</a>
@@ -175,9 +174,10 @@
 
         <!-- Enquiries Table -->
         <div class="table-responsive">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-hover">
                 <thead class="table-dark">
                     <tr>
+                    	<th>S.No</th>
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Course Name</th>
@@ -187,62 +187,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>1234567890</td>
-                        <td>Java</td>
-                        <td>Online</td>
-                        <td>New</td>
-                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
+                    <tr th:each="enq , loopCounter:${enquiries}">
+                    	<td th:text="${loopCounter.index+1}"></td>
+                        <td th:text="${enq.stuName}"></td>
+                        <td th:text="${enq.stuPhone}"></td>
+                        <td th:text="${enq.courseName}"></td>
+                        <td th:text="${enq.classMode}"></td>
+                        <td th:text="${enq.enqStatus}"></td>
+                        <td><a th:href="@{'/editEnq?enqId='+${enq.enqId}}" class="text-primary">Edit</a></td>
                     </tr>
-                    <tr>
-                        <td>Jane Smith</td>
-                        <td>0987654321</td>
-                        <td>Python</td>
-                        <td>Classroom</td>
-                        <td>Enrolled</td>
-                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>Sam Wilson</td>
-                        <td>9876543210</td>
-                        <td>DevOps</td>
-                        <td>Online</td>
-                        <td>Lost</td>
-                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>Chris Brown</td>
-                        <td>1122334455</td>
-                        <td>Java</td>
-                        <td>Classroom</td>
-                        <td>New</td>
-                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>Alice Johnson</td>
-                        <td>2233445566</td>
-                        <td>Python</td>
-                        <td>Online</td>
-                        <td>Enrolled</td>
-                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>Mike Taylor</td>
-                        <td>3344556677</td>
-                        <td>DevOps</td>
-                        <td>Classroom</td>
-                        <td>Lost</td>
-                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>Emily White</td>
-                        <td>4455667788</td>
-                        <td>Java</td>
-                        <td>Online</td>
-                        <td>New</td>
-                        <td><a href="add-enquiry.html" class="text-primary">Edit</a></td>
-                    </tr>
+                    
+                    <tr th:if="${enquiries.size()==0}">
+                    <td colspan="7">No Records Founds</td></tr>
                 </tbody>
             </table>
         </div>

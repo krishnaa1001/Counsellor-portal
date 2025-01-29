@@ -50,6 +50,18 @@
         .btn:hover {
             opacity: 0.9;
         }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .success-message {
+            color: green;
+            text-align: center;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -64,15 +76,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                         <li class="nav-item">
-                        <a class="nav-link" href="profile.html">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Logout</a>
-                    </li>
+                   <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+
+                    <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                 
+                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -81,19 +89,25 @@
     <!-- Enquiry Form -->
     <div class="form-container">
         <h2>Course Enquiry</h2>
-        <form action="#">
+
+        <p class="error-message" th:if="${emsg}" th:text="${emsg}"></p>
+        <p class="success-message" th:if="${smsg}" th:text="${smsg}"></p>
+
+        <!-- Form for submitting enquiry -->
+        <form th:action="@{/add-enquiry}" th:object="${enq}" method="post">
             <div class="mb-3">
                 <label for="name" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                <input type="text" th:field="*{stuName}" class="form-control" id="name" placeholder="Enter your full name" required>
+                <input type="hidden" th:field="*{enqId}" required>
             </div>
             <div class="mb-3">
                 <label for="phone" class="form-label">Phone Number</label>
-                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                <input type="tel" th:field="*{stuPhone}" class="form-control" id="phone" placeholder="Enter your phone number" required>
             </div>
             <div class="mb-3">
                 <label for="courseType" class="form-label">Course Type</label>
-                <select class="form-select" id="courseType" required>
-                    <option value="" disabled selected>Select Course</option>
+                <select th:field="*{courseName}" class="form-select" id="courseType" required>
+                    <option value="" selected>Select Course</option>
                     <option value="java">Java</option>
                     <option value="python">Python</option>
                     <option value="devops">DevOps</option>
@@ -102,24 +116,27 @@
             </div>
             <div class="mb-3">
                 <label for="classMode" class="form-label">Class Mode</label>
-                <select class="form-select" id="classMode" required>
-                    <option value="" disabled selected>Select Class Mode</option>
+                <select th:field="*{classMode}" class="form-select" id="classMode" required>
+                    <option value="" selected>Select Class Mode</option>
                     <option value="online">Online</option>
                     <option value="offline">Offline</option>
                 </select>
             </div>
             <div class="mb-3">
                 <label for="courseStatus" class="form-label">Course Status</label>
-                <select class="form-select" id="courseStatus" required>
-                    <option value="" disabled selected>Select Course Status</option>
+                <select th:field="*{enqStatus}" class="form-select" id="courseStatus" required>
+                    <option value="" selected>Select Course Status</option>
                     <option value="open">Open</option>
                     <option value="enrolled">Enrolled</option>
                     <option value="lost">Lost</option>
                 </select>
             </div>
+
+            
+
             <div class="form-buttons">
                 <button type="submit" class="btn btn-submit">Submit Enquiry</button>
-                <a href="view-enquiry" class="btn btn-view">View Enquiries</a>
+                <a href="/view-enquiry" class="btn btn-view">View Enquiries</a>
             </div>
         </form>
     </div>

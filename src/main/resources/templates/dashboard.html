@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" >
 <head>
     <title>Dashboard - Counsellor Portal</title>
     <meta charset="UTF-8">
@@ -83,7 +84,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Counsellor Portal</a>
+            <a class="navbar-brand" href="/">Counsellor Portal</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -91,7 +92,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Dashboard</a>
+                        <a class="nav-link active" href="dashboard">Dashboard</a>
                     </li>
                    <!--   <li class="nav-item">
                         <a class="nav-link" href="#">Enquiries</a>
@@ -100,10 +101,10 @@
                         <a class="nav-link" href="#">Add Enquiry</a>
                     </li>-->
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Profile</a>
+                        <a class="nav-link" href="profile">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
+                        <a class="nav-link" href="logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -117,19 +118,19 @@
     <div class="stats-container">
         <div class="stat-card">
             <h2>Total Enquiries</h2>
-            <p>Count: 120</p>
+            <p th:text="${dashboardInfo.totalEnqs}"></p>
         </div>
         <div class="stat-card">
             <h2>Open Enquiries</h2>
-            <p>Count: 45</p>
+            <p th:text="${dashboardInfo.openEnqs}"></p>
         </div>
         <div class="stat-card">
             <h2>Enrolled Enquiries</h2>
-            <p>Count: 60</p>
+            <p th:text="${dashboardInfo.enrolledEnqs}"></p>
         </div>
         <div class="stat-card">
             <h2>Lost Enquiries</h2>
-            <p>Count: 15</p>
+            <p th:text="${dashboardInfo.lostEnqs}"></p>
         </div>
     </div>
 
